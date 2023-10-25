@@ -10,25 +10,25 @@ import { Blockquote, Button, Flex, Text, Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { githubLightInit } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
-import { useCallback, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
-const stateFields = { history: historyField };
+import { useCallback, useEffect, useState } from 'react';
 
-const initialState = {
-  message: null,
-}
+const stateFields = { history: historyField };
 
 function App() {
   const [serializedState, setSerializedStage] = useState('');
   const [localStorageCode, setLocalStorageCode] = useLocalStorage('code', '');
-  const [formState, formAction] = useFormState(submit_code, initialState);
-  const [serverOutput, setServerOutput] = useState('');
-
-  const { pending } = useFormStatus();
+  const [serverResponse, setServerResponse] = useState('');
 
   const onChange = useCallback((val, viewUpdate) => {
     setLocalStorageCode(val);
   }, []);
+
+  const actionWithResponse = async (formData) => {
+    setServerResponse('');
+    const response = await submit_code(formData);
+    console.log(response);
+    setServerResponse(response.exec_result);
+  }
 
   return (
     <Flex direction='column' gap='2'>
@@ -54,12 +54,12 @@ function App() {
         <Button type='submit'>Submit Code</Button>
       </form> */}
 
-      <form action={formAction}>
-        <input type="hidden" id="code" name="code" value={ localStorageCode } />
+      <form action={actionWithResponse}>
+        <input type="hidden" id="code" name="code" value={localStorageCode} />
         <Button type='submit'>Submit Code</Button>
       </form>
 
-      <Blockquote className={styles.problem}>{formState?.message}</Blockquote>
+      <pre className={styles.problem}>{serverResponse}</pre>
     </Flex>
   );
 }
