@@ -1,6 +1,6 @@
 'use client'
 
-import { usePersistedState } from "@/utils/hooks";
+import useLocalStorage from '@/lib/hooks/use-local-storage';
 
 import { useCallback } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
@@ -11,7 +11,7 @@ import { solarizedDark, solarizedDarkTheme, solarizedDarkHighlightStyle } from '
 const extensions = [python(), solarizedDark, syntaxHighlighting(solarizedDarkHighlightStyle)];
 
 export default function App() {
-    const [code, setCode] = usePersistedState('code', '');
+    const [code, setCode] = useLocalStorage('code', '');
     
     const onChange = useCallback((value, viewUpdate) => {
       setCode(value);
