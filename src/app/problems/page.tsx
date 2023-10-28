@@ -9,7 +9,7 @@ import { indentUnit } from '@codemirror/language';
 import { Blockquote, Button, Flex, Text, Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { githubLightInit } from '@uiw/codemirror-theme-github';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useEffect, useState } from 'react';
 
 const stateFields = { history: historyField };
@@ -19,11 +19,11 @@ function App() {
   const [localStorageCode, setLocalStorageCode] = useLocalStorage('code', '');
   const [serverResponse, setServerResponse] = useState('');
 
-  const onChange = useCallback((val, viewUpdate) => {
+  const onChange = useCallback((val: string, viewUpdate: ViewUpdate) => {
     setLocalStorageCode(val);
-  }, []);
+  }, [setLocalStorageCode]);
 
-  const actionWithResponse = async (formData) => {
+  const actionWithResponse = async (formData: FormData) => {
     setServerResponse('');
     const response = await submit_code(formData);
     console.log(response);
@@ -64,7 +64,7 @@ function App() {
   );
 }
 
-export default function () {
+export default function CodeInputPage() {
   return (
     <html>
       <body>

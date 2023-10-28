@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { useEffect, useState } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
 import { syntaxHighlighting } from '@codemirror/language'
 import { solarizedDark, solarizedDarkTheme, solarizedDarkHighlightStyle } from 'cm6-theme-solarized-dark'
 
 const extensions = [python(), solarizedDark, syntaxHighlighting(solarizedDarkHighlightStyle)];
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key: string, initialValue: string) => {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === "undefined") {
       return initialValue;
@@ -23,7 +23,7 @@ const useLocalStorage = (key, initialValue) => {
     }
   });
 
-  const setValue = (value) => {
+  const setValue = (value: string) => {
     try {
       setStoredValue(value);
 
@@ -40,7 +40,7 @@ const useLocalStorage = (key, initialValue) => {
 export default function App() {
   const [code, setCode] = useLocalStorage('code', '');
   
-  const onChange = React.useCallback((value, viewUpdate) => {
+  const onChange = React.useCallback((value: string, viewUpdate: ViewUpdate) => {
     setCode(value);
   }, []);
   

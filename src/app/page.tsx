@@ -117,7 +117,7 @@ function Home() {
 
 
 
-export default function () {
+export default function HomeApp() {
   return (
     <html>
       <body>

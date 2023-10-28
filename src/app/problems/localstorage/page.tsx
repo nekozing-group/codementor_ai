@@ -3,7 +3,7 @@
 import useLocalStorage from '@/lib/hooks/use-local-storage';
 
 import { useCallback } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
 import { syntaxHighlighting } from '@codemirror/language'
 import { solarizedDark, solarizedDarkTheme, solarizedDarkHighlightStyle } from 'cm6-theme-solarized-dark'
@@ -13,7 +13,7 @@ const extensions = [python(), solarizedDark, syntaxHighlighting(solarizedDarkHig
 export default function App() {
     const [code, setCode] = useLocalStorage('code', '');
     
-    const onChange = useCallback((value, viewUpdate) => {
+    const onChange = useCallback((value: string, viewUpdate: ViewUpdate) => {
       setCode(value);
     }, []);
     
