@@ -2,12 +2,9 @@
 
 import useLocalStorage from '@/lib/hooks/use-local-storage';
 import { submitCode } from '@/lib/server-functions/clients';
-import styles from '@/styles.module.css';
 import { python } from '@codemirror/lang-python';
 import { indentUnit } from '@codemirror/language';
-import { Button } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
-import { githubLightInit } from '@uiw/codemirror-theme-github';
+import { githubLightInit, githubDarkInit } from '@uiw/codemirror-theme-github';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useState } from 'react';
 
@@ -44,10 +41,10 @@ export default function CodeInput(props: { problemId: string }) {
       <form action={actionWithResponse}>
         <input type="hidden" id="code" name="code" value={localStorageCode} />
         <input type="hidden" id="problemId" name="problemId" value="sort" />
-        <Button type='submit'>Submit Code</Button>
+        <button className='btn btn-primary' type='submit'>Submit Code</button>
       </form>
 
-      <pre className={styles.problem}>{serverResponse}</pre>
+      <pre>{serverResponse}</pre>
     </div>
   )
 }
