@@ -1,0 +1,20 @@
+.reactMarkDown {
+
+}
+
+.reactMarkDown h2 {
+    color: blue;
+}
+  
+.reactMarkDown ul {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    list-style: disc outside none;
+    color: blue;
+}
+
+.reactMarkDown ul li {
+    margin-left: 2em;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
