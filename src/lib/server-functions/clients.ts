@@ -41,13 +41,28 @@ export async function submitCode(formData: FormData) {
 
 export async function getProblemStatement(problemId: string): Promise<string> {
   try {
-    const response = await fetch(`${getServerUrl()}/problem_statement/${problemId}`);
+    const response = await fetch(`${getServerUrl()}/problems/${problemId}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok. Status: ${response.status}`)
     }
     const data = await response.json();
     console.log('Success:', data);
     return data.problem_statement;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
+export async function getProblemList(): Promise<string[]> {
+  try {
+    const response = await fetch(`${getServerUrl()}/problems`);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok. Status: ${response.status}`)
+    }
+    const data = await response.json();
+    console.log('Success:', data);
+    return data;
   } catch (error) {
     console.error('Error:', error);
     throw error;
