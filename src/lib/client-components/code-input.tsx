@@ -7,6 +7,7 @@ import { indentUnit } from '@codemirror/language';
 import { githubLightInit, githubDarkInit } from '@uiw/codemirror-theme-github';
 import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import { useCallback, useState } from 'react';
+import LLMFeedback from './llm-feedback';
 
 export default function CodeInput(props: { problemId: string }) {
   const [localStorageCode, setLocalStorageCode] = useLocalStorage('code', '');
@@ -44,7 +45,7 @@ export default function CodeInput(props: { problemId: string }) {
         <button className='btn btn-primary' type='submit'>Submit Code</button>
       </form>
 
-      <pre>{serverResponse}</pre>
+      <LLMFeedback serverResponse={serverResponse}/>
     </div>
   )
 }

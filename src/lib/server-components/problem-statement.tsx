@@ -11,6 +11,6 @@ export async function ProblemStatement(props: Props): Promise<JSX.Element> {
   // const [md] = await Promise.all([responseData]);
   console.log(md);
   return (
-    <Markdown className='prose dark:prose-invert'>{md}</Markdown>
+    <Markdown className='prose dark:prose-invert max-w-5xl'>{md}</Markdown>
   )
 }

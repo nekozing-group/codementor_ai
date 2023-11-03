@@ -7,8 +7,10 @@ export default function CodeInputPage({ params }: { params: { problemid: string 
   return (
     <html>
       <body>
-        <ProblemNav> 
-          <SingleProblemApp problemId={ params.problemid } />
+        <ProblemNav>
+          <div className="md:container md:max-w-7xl content-start">
+            <SingleProblemApp problemId={params.problemid} />
+          </div>
         </ProblemNav>
       </body>
     </html>
