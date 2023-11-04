@@ -2,6 +2,8 @@
 
 const isInK8s = Boolean(process.env.KUBERNETES_SERVICE_HOST);
 
+const isOffline = Boolean(process.env.CODEMENTOR_OFFLINE)
+
 function getServerUrl(): string {
   if (isInK8s) {
     console.log('in kubernetes environment...');
@@ -13,6 +15,11 @@ function getServerUrl(): string {
 }
 
 export async function submitCode(formData: FormData) {
+  if (isOffline) {
+    return {"session_id":"session_id_mock","error":null,"llm_guidance":"this is something llm said","test_results":{"session_id":"session_id_mock","test_outputs":[{"test_pass":true,"error_message":null,"input":5,"actual_output":5,"expected_output":5},{"test_pass":false,"error_message":"mock error message","input":6,"actual_output":5,"expected_output":6}],"num_total_tests":2,"num_tests_passed":1}};
+  }
+
+
   const code = formData.get('code');
   const problemId = formData.get('problemId')
   const url = `${getServerUrl()}/grade/${problemId}`;
@@ -40,6 +47,10 @@ export async function submitCode(formData: FormData) {
 }
 
 export async function getProblemStatement(problemId: string): Promise<string> {
+  if (isOffline) {
+    return 'mock_problem_statement';
+  }
+
   try {
     const response = await fetch(`${getServerUrl()}/problems/${problemId}`);
     if (!response.ok) {
@@ -55,6 +66,10 @@ export async function getProblemStatement(problemId: string): Promise<string> {
 }
 
 export async function getProblemList(): Promise<string[]> {
+  if (isOffline) {
+    return ['a', 'b', 'c'];
+  }
+
   try {
     const response = await fetch(`${getServerUrl()}/problems`);
     if (!response.ok) {
